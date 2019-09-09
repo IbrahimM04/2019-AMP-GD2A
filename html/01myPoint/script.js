@@ -11,10 +11,13 @@ function rng(max) {
   return Math.floor(Math.random() * max);
 }
 
+function GetRandom(max) {
+  return Math.random() * max;
+}
+
 let r = 10;
 
 let points = [];
-
 
 
 function animate() {
