@@ -7,8 +7,30 @@ const height = window.innerHeight;
 canvas.width = width;
 canvas.height = height;
 
-let a = new Point(new Vector2d(200, 300), 50, "rgb(50,50,50)");
-a.draw(context);
+function rng(max) {
+  return Math.floor(Math.random() * max);
+}
 
-let b = new Point(new Vector2d(20, 250), 10, "rgb(50,50,55)");
-b.draw(context);
+let r = 10;
+
+let points = [];
+
+
+
+function animate() {
+  context.clearRect(0,0, width, height);
+  requestAnimationFrame(animate);
+  let point = new Point(new Vector2d(rng(width), rng(height)), r, "E");
+  points.push(point);
+
+  for(let i = 0; i < points.length; i++) {
+    points[i].radius++;
+    points[i].label = i;
+    if (points.length > 100) {
+      points.splice(i,1);
+    }
+    points[i].draw(context);
+  }
+}
+
+animate();
