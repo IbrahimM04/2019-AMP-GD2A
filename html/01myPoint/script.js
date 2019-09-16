@@ -23,7 +23,7 @@ let points = [];
 function animate() {
   context.clearRect(0,0, width, height);
   requestAnimationFrame(animate);
-  let point = new Point(new Vector2d(rng(width), rng(height)), r, "E");
+  let point = new Point(new Vector2d(rng(width), rng(height)), r);
   points.push(point);
 
   for(let i = 0; i < points.length; i++) {

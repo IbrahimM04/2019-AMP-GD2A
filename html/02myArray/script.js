@@ -38,7 +38,7 @@ window.addEventListener('click', (evt)=> {
     let distanceMouseBall = new Vector2d(0,0)
     distanceMouseBall.differenceVector(mouseVector,balls[i].position);
     if(distanceMouseBall.magnitude < 20) {
-      balls[i].color = "blue";
+      balls[i].color = "#2d2d2d";
     }
   }
 });
