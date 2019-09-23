@@ -9,39 +9,43 @@ canvas.height = height;
 
 let balls = [];
 
+
+
+function resetBalls() {
+  balls = [];
+}
+
+setInterval(resetBalls, 5000);
+
 function rng(max) {
   return Math.floor(Math.random() * max)
 }
 
-for (let i = 0; i < 4; i++) {
-  let ball = new Point(new Vector2d(rng(width), rng(height)), 20);
-  balls.push(ball);
-  balls[i].label = i + 1;
-
-}
-
 function animate() {
   requestAnimationFrame(animate);
-  for (let i = 0; i < balls.length; i++) {
-    balls[i].draw(context);
+  context.clearRect(0, 0, width, height);
+  if(balls.length < 4) {
+  let ball = new Point(new Vector2d(rng(width), rng(height)), 10);
+  balls.push(ball);
+  }
+  context.beginPath();
+  context.moveTo(balls[0].position.dx, balls[0].position.dy);
 
-    if(i == 3) {
-      context.beginPath();
-      context.moveTo(balls[3].position.dx, balls[3].position.dy);
-      context.lineTo(balls[0].position.dx, balls[0].position.dy);
-      context.strokeStyle = "black";
-      context.stroke();
-      context.closePath();
-    } else {
-      context.beginPath();
-      context.moveTo(balls[i].position.dx, balls[i].position.dy);
-      context.lineTo(balls[i + 1].position.dx, balls[i + 1].position.dy);
-      context.strokeStyle = "black";
-      context.stroke();
-      context.closePath();
-    }
+  for (let i = 0; i < balls.length; i++) {
+    context.lineTo(balls[i].position.dx, balls[i].position.dy);
+    context.fillStyle = "rgba(255,0,0,0.2)";
+    context.strokeStyle = "Silver";
   }
 
+  context.closePath();
+  context.fill();
+  context.stroke();
+
+  for (let i = 0; i < balls.length; i++) {
+    balls[i].draw(context);
+    balls[i].label = i + 1;
+
+  }
 
 }
 
