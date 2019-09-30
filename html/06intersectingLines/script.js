@@ -15,15 +15,17 @@ let A = new Point(new Vector2d(200,200), 20, "red", "A", true);
 let B = new Point(new Vector2d(500,200), 20, "green", "B", true);
 let C = new Point(new Vector2d(200,500), 20, "blue", "C", true);
 let D = new Point(new Vector2d(500,100), 20, "yellow", "D", true);
-let S = new Point(new Vector2d(width/2, height/2), 10, "white", "S", false);
+let S = new Point(new Vector2d(width/2, height/2), 10, "pink", "S", false);
 let l = new LinearFunction(1, 1);
 let m = new LinearFunction(-1, 100);
 
+let grid = new Grid(400, 400, 10);
 
 
 function animate() {
   requestAnimationFrame(animate);
   context.clearRect(0, 0, width, height);
+  grid.draw(context);
   l.defineLineWithTwoPoints(A,B);
   m.defineLineWithTwoPoints(C,D);
   l.draw(context);
@@ -37,6 +39,7 @@ function animate() {
 
   S.position.dx = l.intersection(m).x;
   S.position.dy = l.intersection(m).y;
+
   }
 
 

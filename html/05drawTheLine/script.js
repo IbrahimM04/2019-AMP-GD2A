@@ -20,12 +20,13 @@ let B = new Point(new Vector2d(500, 300), 20, "green","2",true);
 function animate(){
 requestAnimationFrame(animate);
 context.clearRect(0,0,canvas.width,canvas.height);
+for (let x = 0; x < width; x += 10) {
+    let point = new Point(new Vector2d(x, f.y(x)), 10, "orange", " ");
+    point.draw(context);
+}
     A.draw(context);
     B.draw(context);
     f.defineLineWithTwoPoints(A, B);
-    for (let x = 0; x < width; x += 10) {
-        let point = new Point(new Vector2d(x, f.y(x)), 10, "orange", " ");
-        point.draw(context);
-    }
+
 }
 animate();
