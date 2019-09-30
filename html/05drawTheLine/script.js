@@ -11,36 +11,21 @@ function rng(max) {
   return Math.floor(Math.random() * max)
 }
 
-let points = [];
+let f = new LinearFunction(1,1);
 
 
+let A = new Point(new Vector2d(200, 200), 20, "yellow","1",true);
+let B = new Point(new Vector2d(500, 300), 20, "green","2",true);
 
-function animate() {
-  requestAnimationFrame(animate);
-  context.clearRect(0, 0, width, height);
-
-  if(points.length < 4) {
-  let point = new Point(new Vector2d(rng(width),rng(height)), 20, "rgba(" + rng(255) + "," + rng(255) + "," + rng(255) + "," + 1 +")", "20", true)
-  points.push(point);
-  }
-  context.beginPath();
-  context.moveTo(points[0].position.dx, points[0].position.dy);
-
-  for (let i = 0; i < points.length; i++) {
-    context.lineTo(points[i].position.dx, points[i].position.dy);
-    context.fillStyle = "rgba(255,0,0,0.2)";
-    context.strokeStyle = "Silver";
-  }
-
-  context.closePath();
-  context.fill();
-  context.stroke();
-
-  for (let i = 0; i < points.length; i++) {
-    points[i].draw(context);
-    points[i].label = i + 1;
-  }
+function animate(){
+requestAnimationFrame(animate);
+context.clearRect(0,0,canvas.width,canvas.height);
+    A.draw(context);
+    B.draw(context);
+    f.defineLineWithTwoPoints(A, B);
+    for (let x = 0; x < width; x += 10) {
+        let point = new Point(new Vector2d(x, f.y(x)), 10, "orange", " ");
+        point.draw(context);
+    }
 }
-
-
 animate();
