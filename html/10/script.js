@@ -18,7 +18,7 @@ let A = new Point(new Vector2d(351,200), 15, "red", "A", true);
 let B = new Point(new Vector2d(500,501), 15, "blue", "B", true);
 let C = new Point(new Vector2d(200, 500), 15, "green", "C", true);
 let S = new Point(new Vector2d(0,0), 5, "yellow", "S", false);
-let D = new Circumcenter(A,B,C,S);
+let D = new Point(new Vector2d(width/2,height/2),10,"rgba(255,255,255,0)"," ",false);
 let mAB = new Point(new Vector2d(0,0), 5, "black", "mAB", false);
 let mBC = new Point(new Vector2d(0,0), 5, "black", "mBC", false);
 let mAC = new Point(new Vector2d(0,0), 5, "black", "mAC", false);
@@ -53,6 +53,14 @@ function animate() {
   B.draw(context);
   C.draw(context);
   S.draw(context);
+
+  let dx = D.position.dx - A.position.dx;
+  let dy = D.position.dy - A.position.dy;
+  D.radius = Math.sqrt((dx*dx)+(dy*dy))
+
+
+  D.position.dx = o.intersection(p).x;
+  D.position.dy = o.intersection(p).y;
 
   mAB.draw(context);
   mBC.draw(context);
