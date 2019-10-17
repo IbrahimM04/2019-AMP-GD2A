@@ -7,75 +7,83 @@ const height = window.innerHeight;
 canvas.width = width;
 canvas.height = height;
 
-function rng(max) {
-  return Math.floor(Math.random() * max)
-}
+let grid = new Grid();
+let A = new Point(new Vector2d(351,500),20,"red","A",true);
+let B = new Point(new Vector2d(200,501),20,"blue","B",true);
+let C = new Point(new Vector2d(201,200),20,"green","C",true);
 
-let grid = new Grid(400, 400, 10);
-let diff = new Vector2d(0,0);
+let D = new Point(new Vector2d(200,200),5,"black","mAC",false);
+let E = new Point(new Vector2d(900,600),5,"black","mAB",false);
+let F = new Point(new Vector2d(400,400),5,"black","mCB",false);
 
-let A = new Point(new Vector2d(351,200), 15, "red", "A", true);
-let B = new Point(new Vector2d(500,501), 15, "blue", "B", true);
-let C = new Point(new Vector2d(200, 500), 15, "green", "C", true);
-let S = new Point(new Vector2d(0,0), 5, "yellow", "S", false);
-let D = new Point(new Vector2d(width/2,height/2),10,"rgba(255,255,255,0)"," ",false);
-let mAB = new Point(new Vector2d(0,0), 5, "black", "mAB", false);
-let mBC = new Point(new Vector2d(0,0), 5, "black", "mBC", false);
-let mAC = new Point(new Vector2d(0,0), 5, "black", "mAC", false);
+let M = new Point(new Vector2d(width/2,height/2),10,"rgba(0,0,255,0)","Intersect",false);
+let S = new Point(new Vector2d(0,0),5,"yellow", "S", false)
+
+
 let l = new LinearFunction(0,0);
 let m = new LinearFunction(0,0);
 let n = new LinearFunction(0,0);
-let o = new LinearFunction(0,0, "LightSkyBlue ");
-let p = new LinearFunction(0,0, "LightSkyBlue ");
-let q = new LinearFunction(0,0, "LightSkyBlue ");
+
+let o = new LinearFunction(0,0);
+let p = new LinearFunction(0,0);
+let q = new LinearFunction(0,0);
+
+function animate()
+{
+    requestAnimationFrame(animate);
+    context.clearRect(0,0,width,height);
+    grid.draw(context);
+
+
+    l.defineLineWithTwoPoints(A,B);
+    m.defineLineWithTwoPoints(B,C);
+    n.defineLineWithTwoPoints(C,A);
 
 
 
-function animate() {
-  requestAnimationFrame(animate);
-  context.clearRect(0, 0, width, height);
-  grid.draw(context);
-  l.defineLineWithTwoPoints(A,B);
-  m.defineLineWithTwoPoints(B,C);
-  n.defineLineWithTwoPoints(C,A);
-  o.defineLineWithTwoPoints(mAB, C);
-  p.defineLineWithTwoPoints(mAC, B);
-  q.defineLineWithTwoPoints(mBC, A);
-  l.draw(context);
-  m.draw(context);
-  n.draw(context);
-  o.draw(context);
-  p.draw(context);
-  q.draw(context);
+    D.position.dx = (C.position.dx + A.position.dx)/2
+    D.position.dy = (C.position.dy + A.position.dy)/2
 
-  D.draw(context);
-  A.draw(context);
-  B.draw(context);
-  C.draw(context);
-  S.draw(context);
+    E.position.dx = (A.position.dx + B.position.dx)/2
+    E.position.dy = (A.position.dy + B.position.dy)/2
 
-  let dx = D.position.dx - A.position.dx;
-  let dy = D.position.dy - A.position.dy;
-  D.radius = Math.sqrt((dx*dx)+(dy*dy))
+    F.position.dx = (B.position.dx + C.position.dx)/2
+    F.position.dy = (B.position.dy + C.position.dy)/2
 
 
-  D.position.dx = o.intersection(p).x;
-  D.position.dy = o.intersection(p).y;
+    o.slope = -1/m.slope;
+    o.intercept = F.position.dy - o.slope*F.position.dx;
+    p.slope = -1/n.slope;
+    p.intercept = D.position.dy - p.slope*D.position.dx;
+    q.slope = -1/l.slope;
+    q.intercept = E.position.dy - q.slope*E.position.dx;
 
-  mAB.draw(context);
-  mBC.draw(context);
-  mAC.draw(context);
-  mAB.position.dx = (A.position.dx + B.position.dx)/2;
-  mAB.position.dy = (A.position.dy + B.position.dy)/2;
+    let dx = M.position.dx - A.position.dx;
+    let dy = M.position.dy - A.position.dy;
+    M.radius = Math.sqrt((dx*dx)+(dy*dy))
 
-  mBC.position.dx = (B.position.dx + C.position.dx)/2;
-  mBC.position.dy = (B.position.dy + C.position.dy)/2;
+    M.position.dx = o.intersection(p).x;
+    M.position.dy = o.intersection(p).y;
 
-  mAC.position.dx = (A.position.dx + C.position.dx)/2;
-  mAC.position.dy = (A.position.dy + C.position.dy)/2;
+    l.draw(context);
+    m.draw(context);
+    n.draw(context);
 
-  S.position.dx = q.intersection(o).x;
-  S.position.dy = q.intersection(o).y;
-  }
+    o.draw(context);
+    p.draw(context);
+    q.draw(context);
+
+    M.draw(context);
+    C.draw(context);
+    A.draw(context);
+    B.draw(context);
+    D.draw(context);
+    E.draw(context);
+    F.draw(context);
+    S.draw(context);
+
+    S.position.dx = o.intersection(p).x;
+    S.position.dy = o.intersection(p).y;
+}
 
 animate();
