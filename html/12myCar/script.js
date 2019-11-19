@@ -54,7 +54,7 @@ function animate() {
   context.restore();
 
   context.save();
-  context.translate(car.position.dx+727.5, car.position.dy+193);
+  context.translate(car.position.dx+727.5, car.position.dy+195);
   if (car.velocity.dx != 0) {
     context.rotate(rot);
   }
@@ -63,7 +63,7 @@ function animate() {
 
   clamp();
 
-  rot += car.velocity.dx/80
+  rot += car.velocity.dx / 80;
 
 
 }
