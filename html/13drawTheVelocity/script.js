@@ -7,7 +7,7 @@ const height = window.innerHeight;
 canvas.width = width;
 canvas.height = height;
 
-let point = new DPoint(new Vector2d(0,0),new Vector2d(3,4), new Vector2d(0,0), 20, "purple");
+let point = new DPoint(new Vector2d(0,0),new Vector2d(3,4), new Vector2d(0,1), 20, "purple");
 
 function animate() {
   requestAnimationFrame(animate);
