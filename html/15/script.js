@@ -25,20 +25,29 @@ function animate() {
 
   // point.vel.scalMul(0.01);
 
-  if  (BCheck) {
-      point.vel.differenceVector(B.position,point.pos);
-      point.vel.scalMul(0.01);
-      }
-      if(!BCheck){
-      point.vel.differenceVector(A.position,point.pos);
-      point.vel.scalMul(0.01);
-      }
+  //point.vel.differenceVector(B.position,point.pos);
+
+  if  (BCheck){
+    point.vel.differenceVector(B.position,point.pos);
+    point.vel.scalMul(0.01);
+    }
+    if(!BCheck){
+    point.vel.differenceVector(A.position,point.pos);
+    point.vel.scalMul(0.01);
+    }
+
+    if (point.vel.magnitude < 0.2 && point.vel.magnitude != 0) {
+        BCheck = !BCheck;
+    }
+
+
 
   point.update();
 
   point.vel.draw(context,point.pos,"red",20);
 
   drawLineAB();
+  changeCourse();
 }
 
 animate();
@@ -50,4 +59,8 @@ function drawLineAB(){
   context.lineTo(B.position.dx,B.position.dy);
   context.closePath();
   context.stroke();
+}
+
+function changeCourse() {
+
 }
