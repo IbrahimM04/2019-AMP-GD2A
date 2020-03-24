@@ -31,6 +31,7 @@ function animate(){
   ball.rad.magnitude = 1;
   ball.tan.dx = -ball.rad.dy;
   ball.tan.dy = ball.rad.dx;
+  ball.tan.magnitude = 1;
   ball.rad.magnitude = ball.rad.dot(ball.vel);
   ball.tan.magnitude = ball.tan.dot(ball.vel);
 
